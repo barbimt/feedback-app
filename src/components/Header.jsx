@@ -16,10 +16,10 @@ export default function Header({text, bgColor, textColor}) {
         <div className="container">
             <h2>{text}</h2> 
         </div>
-        <NavLink to='/' activeClassName='active' className={'nav-bar'}>
+        <NavLink to='/' activeclassname='active' className={'nav-bar'}>
           Home
           </NavLink>
-          <NavLink to='/about' activeClassName='active' className={'nav-bar'}>
+          <NavLink to='/about' activeclassname='active' className={'nav-bar'}>
           About
           </NavLink>
     </header>
