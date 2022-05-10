@@ -9,14 +9,25 @@ export const FeedbackProvider = ({children}) => {
             id: 1,
             text: "This item is from context",
             rating: 10
+        },
+        {
+            id: 2,
+            text: "This item is feedback item",
+            rating: 10
         }
     ])
+    const [feedbackEdit, setFeedbackEdit] = useState({
+        item: {},
+        edit: false,
+    })
 
+    //add feedback
     const addFeedback = (newFeedback) => {
         newFeedback.id = uuidv4();
         setFeedback([newFeedback, ...feedback]);
       };
 
+      //delete feedback
     const deleteFeedback = (id) => {
         showModal(id);
       };
@@ -40,11 +51,22 @@ export const FeedbackProvider = ({children}) => {
         });
       };
 
+      //set item to be updated
+      const editFeedback = (item) => {
+          setFeedbackEdit(
+              {
+                  item,
+                  edit: true
+              }
+          )
+      } 
+
 
     return <FeedbackContext.Provider value={{
         feedback,
         deleteFeedback,
         addFeedback,
+        editFeedback
     }}>
         {children}
     </FeedbackContext.Provider>
