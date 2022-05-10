@@ -5,6 +5,14 @@
   margin: 0;
   padding: 0;
 }
+.active{
+  background: #000;
+  color:#ff6a95;
+}
+
+.nav-bar{
+  padding: 10px;
+}
 
 body {
   font-family: 'Poppins', sans-serif;
