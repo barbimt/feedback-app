@@ -1,76 +1,89 @@
-import {createContext, useState} from 'react'
+import { createContext, useState } from "react";
 import swal from "sweetalert";
 import { v4 as uuidv4 } from "uuid";
-const FeedbackContext = createContext()
+const FeedbackContext = createContext();
 
-export const FeedbackProvider = ({children}) => {
-    const [feedback, setFeedback] = useState([
-        {
-            id: 1,
-            text: "This item is from context",
-            rating: 10
-        },
-        {
-            id: 2,
-            text: "This item is feedback item",
-            rating: 10
-        }
-    ])
-    const [feedbackEdit, setFeedbackEdit] = useState({
-        item: {},
-        edit: false,
-    })
+export const FeedbackProvider = ({ children }) => {
+  const [feedback, setFeedback] = useState([
+    {
+      id: 1,
+      text: "This item is feedback item1",
+      rating: 10,
+    },
+    {
+      id: 2,
+      text: "This item is feedback item2",
+      rating: 9,
+    },
+    {
+        id: 3,
+        text: "This item is feedback item3",
+        rating: 6,
+      },
+  ]);
+  const [feedbackEdit, setFeedbackEdit] = useState({
+    item: {},
+    edit: false,
+  });
 
-    //add feedback
-    const addFeedback = (newFeedback) => {
-        newFeedback.id = uuidv4();
-        setFeedback([newFeedback, ...feedback]);
-      };
+  //add feedback
+  const addFeedback = (newFeedback) => {
+    newFeedback.id = uuidv4();
+    setFeedback([newFeedback, ...feedback]);
+  };
 
-      //delete feedback
-    const deleteFeedback = (id) => {
-        showModal(id);
-      };
-    
-      const showModal = (id) => {
-        swal({
-          title: "Delete Feedback",
-          text: "Are you sure you want to delete?",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-        }).then((willDelete) => {
-          if (willDelete) {
-            swal("Poof! Your feedback has been deleted!", {
-              icon: "success",
-            });
-            setFeedback(feedback.filter((item) => item.id !== id));
-          } else {
-            swal("Your feedback is safe!");
-          }
+  //delete feedback
+  const deleteFeedback = (id) => {
+    showModal(id);
+  };
+
+  const showModal = (id) => {
+    swal({
+      title: "Delete Feedback",
+      text: "Are you sure you want to delete?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("Poof! Your feedback has been deleted!", {
+          icon: "success",
         });
-      };
+        setFeedback(feedback.filter((item) => item.id !== id));
+      } else {
+        swal("Your feedback is safe!");
+      }
+    });
+  };
 
-      //set item to be updated
-      const editFeedback = (item) => {
-          setFeedbackEdit(
-              {
-                  item,
-                  edit: true
-              }
-          )
-      } 
+  //set item to be updated
+  const editFeedback = (item) => {
+    setFeedbackEdit({
+      item,
+      edit: true,
+    });
+  };
+  //update feedback item
+  const updateFeedback = (id, updItem) => {
+        setFeedback(feedback.map((item)=> item.id === id ? {
+          ...item, ...updItem } : item
+        ))
+  } 
 
-
-    return <FeedbackContext.Provider value={{
+  return (
+    <FeedbackContext.Provider
+      value={{
         feedback,
+        feedbackEdit,
         deleteFeedback,
         addFeedback,
         editFeedback,
-        feedbackEdit,
-    }}>
-        {children}
+        updateFeedback
+      }}
+    >
+      {children}
     </FeedbackContext.Provider>
-}
+  );
+};
 
 export default FeedbackContext;
