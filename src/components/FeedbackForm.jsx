@@ -11,7 +11,7 @@ export default function FeedbackForm() {
     const [btnDisabled, setbtnDisabled] = useState(true)
     const [message, setMessage] = useState('')
 
-    const {addFeedback, feedbackEdit, updateFeedback} = useContext(FeedbackContext)
+    const {addFeedback, feedbackEdit, updateFeedback, showEditModal} = useContext(FeedbackContext)
 
     useEffect(() => {
       if(feedbackEdit.edit === true){
@@ -46,6 +46,7 @@ export default function FeedbackForm() {
         }
         if(feedbackEdit.edit === true){
           updateFeedback(feedbackEdit.item.id, newFeedback)
+          showEditModal()
         } else {
            addFeedback(newFeedback)
      

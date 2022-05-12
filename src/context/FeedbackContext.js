@@ -34,10 +34,10 @@ export const FeedbackProvider = ({ children }) => {
 
   //delete feedback
   const deleteFeedback = (id) => {
-    showModal(id);
+    showDeleteModal(id);
   };
 
-  const showModal = (id) => {
+  const showDeleteModal = (id) => {
     swal({
       title: "Delete Feedback",
       text: "Are you sure you want to delete?",
@@ -56,6 +56,13 @@ export const FeedbackProvider = ({ children }) => {
     });
   };
 
+  const showEditModal = () => {
+    swal("Your feedback has been updated", {
+      buttons: false,
+      timer: 3000,
+    });
+  }
+
   //set item to be updated
   const editFeedback = (item) => {
     setFeedbackEdit({
@@ -65,9 +72,12 @@ export const FeedbackProvider = ({ children }) => {
   };
   //update feedback item
   const updateFeedback = (id, updItem) => {
-        setFeedback(feedback.map((item)=> item.id === id ? {
-          ...item, ...updItem } : item
+        setFeedback(feedback.map((item) =>
+         item.id === id ? // condicion
+         {  ...item, ...updItem } : // true
+         item // false
         ))
+        
   } 
 
   return (
@@ -78,7 +88,9 @@ export const FeedbackProvider = ({ children }) => {
         deleteFeedback,
         addFeedback,
         editFeedback,
-        updateFeedback
+        updateFeedback,
+        showEditModal,
+
       }}
     >
       {children}
