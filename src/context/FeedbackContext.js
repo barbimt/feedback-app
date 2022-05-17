@@ -37,8 +37,9 @@ export const FeedbackProvider = ({ children }) => {
   };
 
   //delete feedback
-  const deleteFeedback = (id) => {
+  const deleteFeedback = async (id) => {
     showDeleteModal(id);
+    await fetch(`/feedback/${id}`, {method: 'DELETE'})
   };
 
   const showDeleteModal = (id) => {
@@ -63,7 +64,7 @@ export const FeedbackProvider = ({ children }) => {
   const showEditModal = () => {
     swal("Your feedback has been updated", {
       buttons: false,
-      timer: 3000,
+      timer: 2000,
     });
   }
 
@@ -75,10 +76,20 @@ export const FeedbackProvider = ({ children }) => {
     });
   };
   //update feedback item
-  const updateFeedback = (id, updItem) => {
+  const updateFeedback = async(id, updItem) => {
+    const response = await fetch(`/feedback/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+
+      },
+      body: JSON.stringify(updItem)
+    })
+    const data = await response.json()
+
         setFeedback(feedback.map((item) =>
          item.id === id ? // condicion
-         {  ...item, ...updItem } : // true
+         {  ...item, ...data } : // true
          item // false
         ))
         
