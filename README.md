@@ -14,8 +14,7 @@ This project goes over all of the fundamentals of React including...
 - HTTP Requests
 
 
-#### 🔗 Link to deploy:
-[![Feedback App](https://img.shields.io/badge/-FEEDBACK%20APP-blueviolet)](https://aquamarine-cupcake-f3c12a.netlify.app/) 
+
 
 <image src="https://user-images.githubusercontent.com/82407633/168063924-25143792-7ec3-4429-8c5a-df8229c4afe3.gif"/>
 
